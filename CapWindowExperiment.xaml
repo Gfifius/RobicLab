@@ -1,0 +1,27 @@
+﻿<Window x:Class="RL.CapWindowExperiment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RL" xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d" Name="CWTest"
+        Title="Окно экпериментов" Height="400" Width="1300" FontSize="16">
+
+    <Window.DataContext>
+        <local:Experiment/>
+    </Window.DataContext>
+
+
+    <Grid Name="gr">
+        <Grid.DataContext>
+            <local:Capacitor/>
+        </Grid.DataContext>
+
+        <oxy:PlotView Name="plotModel" Grid.Row="0" Grid.Column="0" Model="{Binding MyModel}" Margin="0,10,20,0" PanCursor="Hand" ZoomHorizontalCursor="SizeWE" ZoomRectangleCursor="SizeNWSE" ZoomVerticalCursor="SizeNS" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="458" Height="255" VerticalAlignment="Top"/>
+
+        <Button Name="Button1" Content="Зависимость времени зарядки от емкости" HorizontalAlignment="Left" Margin="53,71,0,0" VerticalAlignment="Top" Height="39" Width="413" Click="Button_Click" Cursor="Hand" Background="#FFB7D4FF"/>
+        <Button Name="Button2" Content="Зависимость времени зарядки от сопротивления" HorizontalAlignment="Left" Margin="53,143,0,0" VerticalAlignment="Top" Height="39" Width="413" Click="Button_Click" Cursor="Hand" Background="#FFB7D4FF"/>
+        <TextBlock x:Name="Script" TextWrapping="Wrap" Margin="41,27,463,386"/>
+        <!--x:FieldModifier="public"-->
+    </Grid>
+</Window>

@@ -1,0 +1,103 @@
+﻿<Window x:Class="RL.Lens"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RL"
+        mc:Ignorable="d"
+        Title="Линза" Width="1536" Height="864" FontFamily="Comfortaa" FontSize="16"
+        WindowStyle="None" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <EventTrigger.Actions>
+
+
+                <BeginStoryboard>
+                    <Storyboard TargetProperty="Width" TargetName="Light_z" BeginTime="0:0:5">
+                        <DoubleAnimation x:Name="Animation" From="0" To="1050"
+                                         AutoReverse="False"
+                                         RepeatBehavior="0:0:3"
+                                         Duration="0:0:3"/>
+                    </Storyboard>
+                </BeginStoryboard>
+
+                <BeginStoryboard>
+                    <Storyboard TargetName="Light_z">
+                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:05">
+                            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="1146,499,0,0" />
+                            <SplineThicknessKeyFrame KeyTime="00:00:03" Value="1142,521,0,0" />
+                        </ThicknessAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+
+
+
+    <Grid>
+
+        <!--Visibility="Collapsed"-->
+
+        <Image x:Name="Close" MouseDown="Close_MouseDown" Margin="0,60,60,0" Cursor="Hand" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="30"/>
+        <Image x:Name="logo" HorizontalAlignment="Left" Height="60" Margin="84,45,0,0" VerticalAlignment="Top" Width="60" IsEnabled="False"/>
+        <Image x:Name="Home"  HorizontalAlignment="Left" Margin="462,62,0,0" Cursor="Hand" VerticalAlignment="Top" Height="26" Width="26" MouseLeftButtonDown="Home_Click"  MouseEnter="Home_MouseEnter" MouseLeave="Home_MouseLeave" Opacity="0.6"/>
+        <Border Margin="228,54,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="190" Height="42" VerticalAlignment="Top">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label Content="Линза" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="42" HorizontalAlignment="Center" Width="190"/>
+            </Border>
+        </Border>
+
+        <!--Кнопка начала эксперимента-->
+        <Border x:Name="Experiment" MouseLeftButtonDown="Exp_Click"  MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent" Margin="84,731,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="291" Height="42" VerticalAlignment="Top" Cursor="Hand">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label  x:Name="ExperimentLabel" Content="Провести эксперимент" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Center" Width="298"/>
+            </Border>
+        </Border>
+
+
+        <TextBlock TextWrapping="Wrap" Height="30" VerticalAlignment="Top" Margin="84,240,0,0" Text="Радиус кривизны левой поверхности линзы, мм" HorizontalAlignment="Left" Width="482" FontSize="18" Foreground="#FF505050"/>
+        <TextBlock TextWrapping="Wrap" Height="30" VerticalAlignment="Top" Margin="84,290,0,0" Text="Радиус кривизны левой поверхности линзы, мм" HorizontalAlignment="Left" Width="515" FontSize="18" Foreground="#FF505050"/>
+        <TextBlock TextWrapping="Wrap" Height="30" VerticalAlignment="Top" Margin="84,340,0,0" Text="Показатель преломления материала линзы, мм" HorizontalAlignment="Left" Width="515" FontSize="18" Foreground="#FF505050"/>
+        <TextBlock TextWrapping="Wrap" Height="30" VerticalAlignment="Top" Margin="84,390,0,0" Text="Радиус пучка света, мм" HorizontalAlignment="Left" Width="265" FontSize="18" Foreground="#FF505050"/>
+
+
+        <TextBox x:Name="Left_Radius" KeyUp="TextBox_KeyEnterUpdate"  MouseWheel="MouseWheelHandler" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="604,242,0,0" HorizontalAlignment="Left" Width="56" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderThickness="2" BorderBrush="#B7D4FF" Foreground="#FF505050" SelectionBrush="#FF5199FF">300</TextBox>
+        <TextBox x:Name="Right_Radius" KeyUp="TextBox_KeyEnterUpdate" MouseWheel="MouseWheelHandler" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="604,292,0,0" HorizontalAlignment="Left" Width="56" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderThickness="2" BorderBrush="#B7D4FF" Foreground="#FF505050" SelectionBrush="#FF5199FF">300</TextBox>
+        <TextBox x:Name="Refraction" KeyUp="TextBox_KeyEnterUpdate" MouseWheel="MouseWheelHandler" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="604,342,0,0" HorizontalAlignment="Left" Width="56" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderThickness="2" BorderBrush="#B7D4FF" Foreground="#FF505050" SelectionBrush="#FF5199FF">1.8</TextBox>
+        <TextBox x:Name="Height" KeyUp="TextBox_KeyEnterUpdate" MouseWheel="MouseWheelHandler" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="604,392,0,0" HorizontalAlignment="Left" Width="56" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderThickness="2" BorderBrush="#B7D4FF" Foreground="#FF505050" SelectionBrush="#FF5199FF">3</TextBox>
+
+        <Label x:Name="Fail" Content="" HorizontalAlignment="Left" Margin="84,477,0,0" VerticalAlignment="Top" Foreground="#FFE22E2E" FontSize="20" FontFamily="GOST type B" FontWeight="Bold"/>
+        <Label x:Name="Focal" Content="Фокусное расстояние = 18.75мм" HorizontalAlignment="Left" Margin="84,577,0,0" VerticalAlignment="Top" Foreground="#FFCB8F2F" FontSize="20" FontFamily="GOST type B" FontWeight="Bold"/>
+
+
+
+        <Rectangle x:Name="Light" HorizontalAlignment="Left" Height="3" Margin="946,499,0,0" Stroke="#FFFED876" VerticalAlignment="Top" Width="0" RenderTransformOrigin="0.5,0.5" Fill="#FFFED876"/>
+
+
+        <Rectangle x:Name="Light_z" Visibility="Collapsed" HorizontalAlignment="Left" Height="3" Margin="1146,499,0,0" Stroke="#FFFED876" VerticalAlignment="Top" Width="0" RenderTransformOrigin="0.5,0.5" Fill="#FFFED876">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform x:Name="Angle" Angle="16.972"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+
+
+
+
+
+
+        <Image x:Name="Lens_ris" HorizontalAlignment="Left" Height="230" Margin="871,458,0,0" VerticalAlignment="Top" Width="578"/>
+
+
+
+    </Grid>
+
+</Window>

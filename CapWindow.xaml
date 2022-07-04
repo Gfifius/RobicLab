@@ -1,0 +1,131 @@
+﻿<Window x:Class="RL.CapWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RL"
+        xmlns:oxy="http://oxyplot.org/wpf" 
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        mc:Ignorable="d"
+        
+        Title="Конденсатор" Width="1536" Height="864" FontFamily="Comfortaa" FontSize="16"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+
+
+    <Grid x:Name="gridCup">
+        <StackPanel x:Name="stackForButton" Margin="0,455,898,0">
+        </StackPanel>
+
+        <oxy:PlotView Grid.Row="0" Grid.Column="0" Model="{Binding MyModel}" Margin="931,110,0,0" PanCursor="Hand" ZoomHorizontalCursor="SizeWE" ZoomRectangleCursor="SizeNWSE" ZoomVerticalCursor="SizeNS" HorizontalAlignment="Left" Width="494" Height="268" VerticalAlignment="Top">
+            <oxy:PlotView.DataContext>
+                <local:Capacitor/>
+            </oxy:PlotView.DataContext>
+        </oxy:PlotView>
+        <oxy:PlotView x:Name="graf2" Grid.Row="0" Grid.Column="0" Model="{Binding ExperimentModel}" Margin="931,408,0,0" PanCursor="Hand" HorizontalAlignment="Left" Width="494" Height="256" VerticalAlignment="Top" >
+            <oxy:PlotView.DataContext>
+                <local:Experiment/>
+            </oxy:PlotView.DataContext>
+        </oxy:PlotView>
+
+
+
+
+        <Image x:Name="Close" MouseDown="Close_MouseDown" Margin="0,60,60,0" Cursor="Hand" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="30"/>
+        <Image x:Name="logo" HorizontalAlignment="Left" Height="60" Margin="84,45,0,0" VerticalAlignment="Top" Width="60" IsEnabled="False"/>
+        <Image x:Name="Home"  HorizontalAlignment="Left" Margin="507,62,0,0" Cursor="Hand" VerticalAlignment="Top" Height="26" Width="26" MouseLeftButtonDown="Home_Click"  MouseEnter="Home_MouseEnter" MouseLeave="Home_MouseLeave" Opacity="0.6"/>
+        <Border Margin="228,54,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="230" Height="42" VerticalAlignment="Top">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label Content="Конденсатор" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="42" HorizontalAlignment="Center" Width="230"/>
+            </Border>
+        </Border>
+
+        <TextBlock TextWrapping="Wrap" Height="30" VerticalAlignment="Top" Margin="96,278,0,0" Text="Напряжение, В" HorizontalAlignment="Left" Width="206" Foreground="#FF505050"/>
+        <TextBlock TextWrapping="Wrap" Height="30" VerticalAlignment="Top" Margin="96,246,0,0" Text="Емкость, мкФ" HorizontalAlignment="Left" Width="200" Foreground="#FF505050"/>
+        <TextBlock TextWrapping="Wrap" Height="30" VerticalAlignment="Top" Margin="96,214,0,0" Text="Сопротивление, Ом" HorizontalAlignment="Left" Width="200" Foreground="#FF505050"/>
+
+        <TextBox x:Name="Resistance" MouseWheel="MouseWheelHandler" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="302,214,0,0" HorizontalAlignment="Left" Width="56" Text="10" TextChanged="TextBoxChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="#B7D4FF" Foreground="#FF505050" SelectionBrush="#FF5199FF" />
+        <TextBox x:Name="Capacitance" MouseWheel="MouseWheelHandler" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="302,246,0,0" HorizontalAlignment="Left" Width="56" Text="100" TextChanged="TextBoxChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="#B7D4FF" Foreground="#FF505050" SelectionBrush="#FF5199FF"/>
+        <TextBox x:Name="Voltage" MouseWheel="MouseWheelHandler" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="302,278,0,0" HorizontalAlignment="Left" Width="56" Text="5" TextChanged="TextBoxChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="#B7D4FF" Foreground="#FF505050" SelectionBrush="#FF5199FF"/>
+
+        <Image x:Name="RCScheme" Margin="569,137,0,0" MouseLeftButtonDown="Button_ClickRC" HorizontalAlignment="Left" Width="284" Height="217" VerticalAlignment="Top" Source="bin/Debug/net5.0-windows/Resources/RCOff.png"/>
+
+
+        <!--Кнопка включения цепи-->
+        <Border x:Name="RCPower" MouseLeftButtonDown="Button_ClickRC" MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent" Margin="569,378,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="298" Height="44" VerticalAlignment="Top" Cursor="Hand">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label x:Name="RCPowerName" Content="Включить источник питания" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Center" Width="298"/>
+            </Border>
+        </Border>
+
+        <!--Кнопка Таблица/график -->
+        <Border x:Name="grafOrTableButton" MouseLeftButtonDown="Button_ClickRC"  MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent" Margin="569,545,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="298" Height="44" VerticalAlignment="Top" Cursor="Hand">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label x:Name="grafOrTableLabel" Content="Таблица" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Center" Width="298"/>
+            </Border>
+        </Border>
+
+        <!--Кнопка начала эксперимента-->
+        <Border x:Name="ExperimentButton" MouseLeftButtonDown="Exp_Click"  MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent" Margin="84,378,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="298" Height="44" VerticalAlignment="Top" Cursor="Hand">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label  x:Name="ExperimentLabel" Content="Провести эксперимент" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Center" Width="298"/>
+            </Border>
+        </Border>
+
+        <!--Кнопка начала эксперимента заново-->
+        <Border x:Name="startAgain" Visibility="Hidden" MouseLeftButtonDown="Button_ClickRC"  MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent" Margin="84,455,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="298" Height="44" VerticalAlignment="Top" Cursor="Hand">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label Content="Начать заново" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Center" Width="298"/>
+            </Border>
+        </Border>
+
+        <!--Кнопка окончания эксперимента-->
+        <Border x:Name="completeExpC"  MouseLeftButtonDown="Button_ClickRC"  MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent" Margin="84,536,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="298" Height="44" VerticalAlignment="Top" Cursor="Hand">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label Content="Завершить" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Center" Width="298"/>
+            </Border>
+        </Border>
+
+        <StackPanel x:Name="stackForButtonC" Margin="84,500,0,0" VerticalAlignment="Top" Height="293" HorizontalAlignment="Left" Width="620">
+
+            <Border x:Name="Experiment1" MouseLeftButtonDown="Button_ClickRC" MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" Width="620" Height="44" Cursor="Hand">
+                <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                    <Label Content="Зависимость времени зарядки конденсатора от ёмкости" VerticalAlignment="Top" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Center" Width="620"/>
+                </Border>
+            </Border>
+            <Border x:Name="Experiment2" Margin="0,15,0,0" MouseLeftButtonDown="Button_ClickRC" MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent"  BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" Width="620" Height="44" Cursor="Hand">
+                <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                    <Label Content="Зависимость времени зарядки конденсатора от сопротивления" VerticalAlignment="Top" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Left" Width="620"/>
+                </Border>
+            </Border>
+
+        </StackPanel>
+
+        <TextBlock x:Name="Script" Text="{Binding textToTextBox}" DataContext="this" TextWrapping="Wrap" Margin="96,627,0,0" Height="201" VerticalAlignment="Top" HorizontalAlignment="Left" Width="672" LineHeight="25"/>
+        <TextBlock x:Name="CapHelp" TextWrapping="Wrap" Margin="96,605,0,0" Height="223" VerticalAlignment="Top" HorizontalAlignment="Left" Width="770"  LineHeight="25"/>
+
+        <!--<TextBlock x:Name="InfoAboutExperiment" DataContext="this" TextWrapping="Wrap" Margin="931,382,10,428"/>-->
+
+
+
+        <!--<TextBox x:Name="Script" Text="{Binding Example}" TextWrapping="Wrap" Margin="735,51,102,734"/>-->
+
+        <DataGrid x:Name="experimentTable" AutoGenerateColumns="False" DataContext="this" Margin="956,426,28,20" Grid.Column="2" >
+            <!--<DataGrid.Items>
+                <local:Phone Title="iPhone 6S" Company="Apple" Price="54990" />
+                <local:Phone Title="Lumia 950" Company="Microsoft" Price="39990" />
+                <local:Phone Title="Nexus 5X" Company="Google" Price="29990" />
+            </DataGrid.Items>-->
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="column1" Header="" Binding="{Binding Path=Capacite}" Width="300" />
+                <!--<DataGridHyperlinkColumn Header="Компания" Binding="{Binding Path=Company}" Width="80" />-->
+                <DataGridTextColumn Header="Время зарядки, мс" Binding="{Binding Path=Time}" Width="300" />
+            </DataGrid.Columns>
+
+
+
+        </DataGrid>
+
+
+
+    </Grid>
+</Window>

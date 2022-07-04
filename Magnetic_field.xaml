@@ -1,0 +1,73 @@
+﻿<Window x:Class="RL.Magnetic_field"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RL" xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="Магнитное поле катушки" Width="1536" Height="864" FontFamily="Comfortaa" FontSize="16" WindowState="Maximized"
+        WindowStartupLocation="Manual" PreviewMouseLeftButtonDown="CoilClick"
+        >
+    <!-- ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized"-->
+    <Window.DataContext>
+        <local:MagnetField/>
+    </Window.DataContext>
+
+    <Grid x:Name="Coil_Grid" >
+
+        <Image x:Name="Close" MouseDown="Close_MouseDown" Margin="0,60,60,0" Cursor="Hand" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="30"/>
+        <Image x:Name="logo" HorizontalAlignment="Left" Height="60" Margin="84,45,0,0" VerticalAlignment="Top" Width="60" IsEnabled="False"/>
+        <Image x:Name="Home"  HorizontalAlignment="Left" Margin="506,62,0,0" Cursor="Hand" VerticalAlignment="Top" Height="26" Width="26" MouseLeftButtonDown="Home_Click"  MouseEnter="Home_MouseEnter" MouseLeave="Home_MouseLeave" Opacity="0.6"/>
+        <Border Margin="228,54,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="230" Height="42" VerticalAlignment="Top">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label Content="Магнитное поле" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="42" HorizontalAlignment="Center" Width="230"/>
+            </Border>
+        </Border>
+
+        <!--Кнопка начала эксперимента-->
+        <Border x:Name="Experiment" MouseLeftButtonDown="Exp_Click"  MouseEnter="MouseRoutedEvent" MouseLeave="MouseRoutedEvent" Margin="84,731,0,0" BorderBrush="#FFB7D4FF" BorderThickness="2" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" Width="291" Height="42" VerticalAlignment="Top" Cursor="Hand">
+            <Border Background="White" UseLayoutRounding="True" CornerRadius="7" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
+                <Label  x:Name="ExperimentLabel" Content="Провести эксперимент" VerticalAlignment="Center" Foreground="#FF545454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="44" HorizontalAlignment="Center" Width="298"/>
+            </Border>
+        </Border>
+        
+        
+        <Label x:Name="Number" Content="Количество витков&#xA;и длинна катушки&#xA;" Margin="81,192,0,0" Height="75" VerticalAlignment="Top" HorizontalAlignment="Left" Width="220"/>
+        <Label x:Name="Diametr" Content="Диаметр катушки" Margin="81,377,0,0" HorizontalAlignment="Left" Width="191" Height="34" VerticalAlignment="Top"/>
+        <Image x:Name="coil" Margin="0,189,76,0" HorizontalAlignment="Right" Width="440" Height="440" VerticalAlignment="Top"/>
+        <Image x:Name="graph" Margin="0,189,660,0" HorizontalAlignment="Right" Width="440" Height="440" VerticalAlignment="Top"/>
+
+        <StackPanel Margin="91,273,0,0" Orientation="Vertical" Height="64" VerticalAlignment="Top" HorizontalAlignment="Left" Width="97">
+            <RadioButton x:Name="N1" Content="16" Height="31" Width="83" Checked ="N1_Checked" Cursor="Hand"/>
+            <RadioButton x:Name="N2" Content="32" Height="33" Width="83" Checked ="N1_Checked" Cursor="Hand"/>
+
+        </StackPanel>
+        <StackPanel Margin="91,432,0,0" Orientation="Vertical" HorizontalAlignment="Left" Width="111" Height="91" VerticalAlignment="Top">
+            <RadioButton x:Name="L1" Content="20 мм" Height="37" Width="106" Checked ="N1_Checked" Cursor="Hand"/>
+            <RadioButton x:Name="L2" Content="40 мм" Height="32" Width="107" Checked ="N1_Checked" Cursor="Hand"/>
+
+        </StackPanel>
+        <TextBlock  Text="Po" Height="31" VerticalAlignment="Top" Margin="84,565,0,0" HorizontalAlignment="Left" Width="56" />
+        <TextBlock  Text="z" Height="27" VerticalAlignment="Top" Margin="191,565,0,0" HorizontalAlignment="Left" Width="81" />
+        <TextBox x:Name="test1" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="84,601,0,0" HorizontalAlignment="Left" Width="56" Text="0,05" />
+        <TextBox x:Name="test2" MaxLength="50" Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="191,601,0,0" HorizontalAlignment="Left" Width="56" Text="0,2" />
+
+        <TextBlock x:Name="res1" Text="erer1" Height="44" VerticalAlignment="Top" Margin="302,597,0,0" HorizontalAlignment="Left" Width="184" />
+        <TextBlock x:Name="res2" Text="erer" Margin="556,595,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="315"/>
+        <TextBlock x:Name="res3" Text="Угол" Margin="302,646,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="184"/>
+        <TextBlock x:Name="res4" Text="Весь вектор" Margin="503,646,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="184"/>
+        
+        <Button x:Name="Field" PreviewMouseDown="Field_MouseLeftButtonDown"  HorizontalAlignment="Left" Cursor="Hand" Width="291" Height="42" Margin="458,731,0,0" VerticalAlignment="Top"/>
+
+        <oxy:PlotView Visibility="Visible" Grid.Row="0" Grid.Column="0" Model="{Binding MyModel2}" Margin="0,300,60,132" PanCursor="Hand" ZoomHorizontalCursor="SizeWE" ZoomRectangleCursor="SizeNWSE" ZoomVerticalCursor="SizeNS" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="699"/>
+
+
+
+
+
+    </Grid>
+
+
+
+
+</Window>
